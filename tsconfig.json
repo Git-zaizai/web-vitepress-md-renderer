@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "esnext", // 指定生成代码的模块系统为 ESNext（现代 ES 模块规范）
+    "target": "esnext", // 编译目标为最新 ECMAScript 版本（保留最新语法特性）
+    "moduleResolution": "bundler", // 使用打包工具（如 Vite/Rollup）的模块解析策略
+    "esModuleInterop": true, // 启用 ES 模块互操作性（解决 CommonJS/ES 模块导入差异）
+    "strict": true, // 启用严格类型检查（包括空值检查、严格函数类型等）
+    "skipLibCheck": false, // 跳过第三方库（node_modules）的类型检查（提升编译速度）
+    "noUnusedLocals": true, // 检查未使用的局部变量并报错（避免代码冗余）
+    "resolveJsonModule": true, // 允许通过 import 导入 JSON 文件（如 import data from './config.json'）
+    "verbatimModuleSyntax": true, // 保留原始模块语法（不自动转换为默认导入/导出）
+    "jsx": "preserve", // 保留 JSX 语法不转换（由后续工具如 Babel 处理）
+    "lib": ["esnext", "dom", "dom.iterable"] // 包含的内置类型库（支持 ESNext 特性、DOM API 及迭代器）
+  },
+  "include": ["./src/**/*.d.ts", "./src/**/*.vue", "./src/**/*.ts"],
+  "exclude": [
+    "**/dist/**", // 排除构建输出目录（避免重复编译）
+    "scripts" // 排除模板、二进制、文档片段和脚本目录
+  ]
+}

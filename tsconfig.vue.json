@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/types/components", // 类型声明文件输出目录（仅 .d.ts 文件）
+    "target": "ES6", // 编译目标 ECMAScript 版本（ES6 兼容主流现代浏览器）
+    "module": "esnext", // 生成代码的模块系统（使用最新 ES 模块规范）
+    "baseUrl": "./src/components", // 模块解析的基础目录（用于非相对路径导入）
+    "sourceMap": false, // 不生成源映射文件（调试用，生产环境通常关闭）
+    "moduleResolution": "node", // 模块解析策略（使用 Node.js 风格解析路径）
+    "allowJs": false, // 禁止编译 JavaScript 文件（仅处理 TypeScript）
+    "strict": false, // 关闭严格类型检查（如严格空值检查等）
+    "noUnusedLocals": false, // 不检查未使用的局部变量（避免冗余报错）
+    "resolveJsonModule": true, // 允许导入 JSON 文件作为模块
+    "allowSyntheticDefaultImports": true, // 允许从无默认导出的模块使用默认导入（如 `import x from 'mod'`）
+    "esModuleInterop": true, // 启用 ES 模块互操作性（解决 CommonJS/ES 模块导入差异）
+    "removeComments": false, // 保留编译后的注释（文档或调试用）
+    "emitDeclarationOnly": true, // 仅输出类型声明文件（不生成 .js 代码）
+    "declaration": true, // 自动生成类型声明文件（需配合 emitDeclarationOnly）
+    "rootDir": "./src/components", // 项目根目录（控制输出文件的目录结构）
+    "composite": false, // 启用项目编译模式（适用于多项目引用场景）
+    "jsx": "preserve", // 保留 JSX 语法不转换（由后续工具处理）
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // 包含的内置类型库（DOM API、迭代器、ESNext 类型）
+    "skipLibCheck": true, // 跳过第三方库类型检查（提升编译速度）
+    "incremental": false // 添加此配置项以禁用 .tsbuildinfo 文件生成
+  },
+  "include": ["./src/components/**/*.vue", "./src/components/**/*.ts"], // 需要处理的文件模式（Vue 组件和 TS 文件）
+  "exclude": [
+    "node_modules", // 排除 node_modules（第三方依赖）
+    "**/dist", // 排除构建输出目录
+    "**/__tests__/**", // 排除测试目录
+    "**/script/**/*" // 排除自定义脚本目录
+  ]
+}
