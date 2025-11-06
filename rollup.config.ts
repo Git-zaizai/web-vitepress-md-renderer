@@ -3,25 +3,51 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
-import * as fs from 'node:fs/promises'
+import * as fs from 'fs-extra'
 import { builtinModules, createRequire } from 'node:module'
 import { type RollupOptions, defineConfig } from 'rollup'
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 
 import { visualizer } from 'rollup-plugin-visualizer'
+import FastGlob from 'fast-glob'
 
 const nodeModules = builtinModules.flatMap((m) =>
   m.includes('punycode') ? [] : [m, `node:${m}`]
 )
+
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
+
+const fileJs = FastGlob.sync(['src/**'], {
+  ignore: ['**/components', '**/types', '**/snippet.ts']
+})
+// const dependencies = Object.keys(pkg.dependencies)
+// const filterDep = ['shiki', '@shikijs/core', '@shikijs/transformers']
+// const manual = {}
+// dependencies
+// .filter((dep) => !filterDep.includes(dep))
+// .map((key) => {
+// manual[key] = [key]
+// })
 
 const esmBuild: RollupOptions = {
   input: './src/index.ts',
   output: {
     format: 'esm',
     dir: './dist/esm',
-    chunkFileNames: 'js/[name].[format].[hash].js'
+    chunkFileNames: 'js/[name].[format].[hash].js',
+    // manualChunks: manual
     // preserveModules: true
+    // exports: 'named', // 指定导出模式（自动、默认、命名、无）
+    // preserveModules: true, // 保留模块结构
+    // preserveModulesRoot: '', // 将保留的模块放在根级别的此路径下
+    manualChunks(id) {
+      const index = fileJs.indexOf(id)
+      if (fileJs.includes(id)) {
+        return fileJs[index].split('/').pop()
+      }
+    }
   },
   plugins: [
     alias({ entries: { 'readable-stream': 'stream' } }),

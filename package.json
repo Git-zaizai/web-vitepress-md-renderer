@@ -37,6 +37,7 @@
     "@types/node": "^24.9.2",
     "@vitejs/plugin-vue": "^6.0.1",
     "esbuild": "^0.25.11",
+    "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.2",
     "postcss-import": "^16.1.1",
     "rimraf": "^6.0.1",
@@ -55,14 +56,13 @@
     "postcss": "^8"
   },
   "dependencies": {
-    "@mdit-vue/plugin-frontmatter": "^2.1.4",
-    "@mdit-vue/plugin-sfc": "^2.1.4",
     "@mdit-vue/plugin-component": "^2.1.4",
+    "@mdit-vue/plugin-frontmatter": "^2.1.4",
     "@mdit-vue/plugin-headers": "^2.1.4",
+    "@mdit-vue/plugin-sfc": "^2.1.4",
     "@mdit-vue/plugin-title": "^2.1.4",
     "@mdit-vue/plugin-toc": "^2.1.4",
     "@mdit-vue/shared": "^2.1.4",
-    "shiki": "^3.4.0",
     "@shikijs/core": "^3.4.0",
     "@shikijs/transformers": "^3.4.0",
     "markdown-it": "^14.1.0",
@@ -73,6 +73,7 @@
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "nanoid": "^5.1.5",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "shiki": "^3.4.0"
   }
 }
