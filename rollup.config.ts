@@ -3,7 +3,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
-import * as fs from 'fs-extra'
 import { builtinModules, createRequire } from 'node:module'
 import { type RollupOptions, defineConfig } from 'rollup'
 import dts from 'rollup-plugin-dts'
@@ -11,6 +10,11 @@ import esbuild from 'rollup-plugin-esbuild'
 
 import { visualizer } from 'rollup-plugin-visualizer'
 import FastGlob from 'fast-glob'
+import * as fs from 'fs-extra'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = fileURLToPath(import.meta.url)
 
 const nodeModules = builtinModules.flatMap((m) =>
   m.includes('punycode') ? [] : [m, `node:${m}`]
@@ -21,7 +25,7 @@ const pkg = require('./package.json')
 
 const fileJs = FastGlob.sync(['src/**'], {
   ignore: ['**/components', '**/types', '**/snippet.ts']
-})
+}).map((item) => path.join(__dirname, item))
 // const dependencies = Object.keys(pkg.dependencies)
 // const filterDep = ['shiki', '@shikijs/core', '@shikijs/transformers']
 // const manual = {}
@@ -43,9 +47,14 @@ const esmBuild: RollupOptions = {
     // preserveModules: true, // 保留模块结构
     // preserveModulesRoot: '', // 将保留的模块放在根级别的此路径下
     manualChunks(id) {
-      const index = fileJs.indexOf(id)
-      if (fileJs.includes(id)) {
-        return fileJs[index].split('/').pop()
+      // 如果是 src 目录下的文件，保持原有目录结构
+      if (id.includes('src') && !id.includes('node_modules')) {
+        const relativePath = path.relative(path.join(__dirname, 'src'), id)
+        if (relativePath && !relativePath.startsWith('..')) {
+          return relativePath
+            .replace(/\\/g, '/')
+            .replace(/\.(ts|js|vue|css)$/, '')
+        }
       }
     }
   },

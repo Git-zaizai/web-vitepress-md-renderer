@@ -30,7 +30,7 @@ const vueBuild: RollupOptions = {
   input: './src/components/index.ts',
   output: {
     format: 'esm',
-    file: 'dist/esm/components/index.js',
+    file: 'dist/esm/components/VPDoc.js',
     chunkFileNames: 'js/[name].[format].[hash].js', // 动态导入的文件存放到 dist/async 目录下
     sourcemap: process.env.NODE_ENV === 'production'
   },

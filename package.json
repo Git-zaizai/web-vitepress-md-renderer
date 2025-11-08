@@ -1,9 +1,33 @@
 {
   "name": "web-vitepress-md-renderer",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "`web-vitepress-md-renderer` 是一个渲染 md 内容的库。主要是提取了 `vitepress` 中的 `md` 渲染器，用于在浏览器中使用。",
+  "main": "dist/esm/index.js",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*": "./dist/esm/*"
+  },
+  "types": "./dist/types/index.d.ts",
+  "keywords": [
+    "vitepress",
+    "markdown",
+    "renderer",
+    "vue",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "vite": "vite",
     "clean": "rimraf dist",
@@ -18,9 +42,6 @@
     "--------------------------------------------3": "--------------------------------------------------------------------------",
     "node:js": "node ./scripts/file.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.8",
