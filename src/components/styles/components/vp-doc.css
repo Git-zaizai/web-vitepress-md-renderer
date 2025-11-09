@@ -325,7 +325,7 @@
   display: block;
   padding: 0 24px;
   width: fit-content;
-  min-width: 100%;
+  /* min-width: 100%; */
   line-height: var(--vp-code-line-height);
   font-size: var(--vp-code-font-size);
   color: var(--vp-code-block-color);
